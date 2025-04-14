@@ -92,11 +92,11 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           python -m venv venv
-          ls -R .\venv
           .\venv\Scripts\Activate.ps1
           pip install pyinstaller
           pip install dist/news_app-0.0.1-py3-none-any.whl
           pyinstaller --onefile runner.py
+          ls -R .\dist
           mv dist\runner papp\runner
         working-directory: projects/elec_app
 
