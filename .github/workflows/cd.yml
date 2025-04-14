@@ -77,21 +77,22 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: create python binary (linux,macos)
-        if: runner.os != 'Windows'
-        run: |
-          python -m venv .venv
-          source .venv/bin/activate
-          pip install pyinstaller
-          pip install dist/news_app-0.0.1-py3-none-any.whl
-          pyinstaller --onefile runner.py
-          mv dist/runner papp/runner
-        working-directory: projects/elec_app
+      # - name: create python binary (linux,macos)
+      #   if: runner.os != 'Windows'
+      #   run: |
+      #     python -m venv .venv
+      #     source .venv/bin/activate
+      #     pip install pyinstaller
+      #     pip install dist/news_app-0.0.1-py3-none-any.whl
+      #     pyinstaller --onefile runner.py
+      #     mv dist/runner papp/runner
+      #   working-directory: projects/elec_app
 
       - name: create python binary
         if: runner.os == 'Windows'
         run: |
-          python -m venv .venv
+          python -m venv venv
+          ls -lR .\venv
           .\venv\Scripts\Activate.ps1
           pip install pyinstaller
           pip install dist/news_app-0.0.1-py3-none-any.whl
