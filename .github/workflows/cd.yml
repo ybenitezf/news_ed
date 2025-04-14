@@ -67,6 +67,10 @@ jobs:
         with:
           name: news_app_dist
           path: projects/elec_app
+          merge-multiple: true
+
+      - name: Display structure of downloaded files
+        run: ls -R projects/elec_app
 
       - name: Set up Python
         uses: actions/setup-python@v5
