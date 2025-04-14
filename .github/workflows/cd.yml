@@ -82,7 +82,7 @@ jobs:
           python3 -m venv .venv
           source .venv/bin/activate
           pip install pyinstaller
-          pip install *.whl
+          pip install news_app-0.0.1-py3-none-any.whl
           pyinstaller --onefile runner.py
           mv dist/runner papp/runner
         working-directory: projects/elec_app
