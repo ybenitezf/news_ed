@@ -92,7 +92,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           python -m venv venv
-          ls -lR .\venv
+          ls -R .\venv
           .\venv\Scripts\Activate.ps1
           pip install pyinstaller
           pip install dist/news_app-0.0.1-py3-none-any.whl
