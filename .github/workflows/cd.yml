@@ -97,7 +97,7 @@ jobs:
           pip install dist/news_app-0.0.1-py3-none-any.whl
           pyinstaller --onefile runner.py
           ls -R .\dist
-          mv dist\runner papp\runner
+          mv dist\runner.exe papp\runner.exe
         working-directory: projects/elec_app
 
       - uses: actions/setup-node@v4
