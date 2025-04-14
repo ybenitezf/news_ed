@@ -69,9 +69,6 @@ jobs:
           path: projects/elec_app
           merge-multiple: true
 
-      - name: Display structure of downloaded files
-        run: ls -R projects/elec_app
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -111,14 +108,31 @@ jobs:
           npm run package
         working-directory: projects/elec_app
 
-      - name: debug files
-        working-directory: projects/elec_app
-        run: |
-          ls -R dist/*
+      # - name: debug files
+      #   working-directory: projects/elec_app
+      #   run: |
+      #     ls -R dist/*
 
-      # - name: Upload artifacts
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: app_dist
-      #     path: projects/elec_app/dist
-      #     if-no-files-found: "error"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: runner.os == 'Windows'
+        with:
+          name: app_dist_win32
+          path: projects/elec_app/dist/*.exe
+          if-no-files-found: "error"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: runner.os == 'Linux'
+        with:
+          name: app_dist_linux
+          path: projects/elec_app/dist/*.AppImage
+          if-no-files-found: "error"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: runner.os == 'macOS'
+        with:
+          name: app_dist_macos
+          path: projects/elec_app/dist/*.dmg
+          if-no-files-found: "error"
