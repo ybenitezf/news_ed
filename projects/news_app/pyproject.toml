@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "news_app"
+version = "0.0.1"
+description = "A fasthtml backed"
+
+authors = ["Yoel Benítez Fonseca <ybenitezf@gmail.com>"]
+license = ""
+
+packages = [
+    {include = "news/ui_back",from = "../../bases"}
+]
+
+[tool.poetry.scripts]
+ui_back = 'news.ui_back.main:run'
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-fasthtml = "^0.12.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
