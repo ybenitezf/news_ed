@@ -80,7 +80,7 @@ jobs:
       - name: create python binary (linux,macos)
         if: runner.os != 'Windows'
         run: |
-          python3 -m venv .venv
+          python -m venv .venv
           source .venv/bin/activate
           pip install pyinstaller
           pip install dist/news_app-0.0.1-py3-none-any.whl
@@ -91,12 +91,12 @@ jobs:
       - name: create python binary
         if: runner.os == 'Windows'
         run: |
-          python3 -m venv .venv
-          .env\Scripts\activate.bat
+          python -m venv $PWD\venv
+          $PWD\env\Scripts\activate.bat
           pip install pyinstaller
           pip install dist/news_app-0.0.1-py3-none-any.whl
           pyinstaller --onefile runner.py
-          mv dist/runner papp/runner
+          mv dist\runner papp\runner
         working-directory: projects/elec_app
 
       - uses: actions/setup-node@v4
