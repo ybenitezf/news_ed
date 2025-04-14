@@ -39,5 +39,5 @@ jobs:
       - name: Install project
         run: poetry install --no-interaction
 
-      - name: Run tests
+      - name: Build projects packages
         run: bash build-packages.sh
