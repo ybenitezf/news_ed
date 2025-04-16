@@ -85,13 +85,18 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Extract version from tag
+        run: |
+          VERSION=$(echo "${GITHUB_REF}" | sed 's/^refs\/tags\/v//')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
       - name: create python binary (linux,macos)
         if: runner.os != 'Windows'
         run: |
           python -m venv .venv
           source .venv/bin/activate
           pip install pyinstaller
-          pip install dist/news_app-0.0.1-py3-none-any.whl
+          pip install dist/news_app-${{ env.VERSION }}-py3-none-any.whl
           pyinstaller --onefile runner.py
           mv dist/runner papp/runner
         working-directory: projects/elec_app
@@ -102,7 +107,7 @@ jobs:
           python -m venv venv
           .\venv\Scripts\Activate.ps1
           pip install pyinstaller
-          pip install dist/news_app-0.0.1-py3-none-any.whl
+          pip install dist/news_app-${{ env.VERSION }}-py3-none-any.whl
           pyinstaller --onefile runner.py
           mv dist\runner.exe papp\runner.exe
         working-directory: projects/elec_app
