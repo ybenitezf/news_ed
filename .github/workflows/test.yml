@@ -13,9 +13,11 @@ jobs:
         uses: actions/checkout@v3
 
       # Extract the version part from the tag name
-      - name: Extract version number
-        id: extract_version
-        run: echo "::set-output name=version::${GITHUB_REF#refs/tags/v}"
+      - name: Extract version from tag
+        run: |
+          VERSION=$(echo "${GITHUB_REF}" | sed 's/^refs\/tags\/v//')
+          echo "version=$VERSION" >> $GITHUB_ENV
 
-      - name: Use version number in subsequent steps
-        run: echo "The version is ${{ steps.extract_version.outputs.version }}"
+      - name: Print the extracted version
+        run: |
+          echo "Extracted version: ${env.VERSION}"
