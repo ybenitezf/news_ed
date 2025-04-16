@@ -20,4 +20,4 @@ jobs:
 
       - name: Print the extracted version
         run: |
-          echo "Extracted version: ${env.VERSION}"
+          echo "Extracted version: ${{ env.VERSION }}"
