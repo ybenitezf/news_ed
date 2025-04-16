@@ -16,7 +16,7 @@ jobs:
       - name: Extract version from tag
         run: |
           VERSION=$(echo "${GITHUB_REF}" | sed 's/^refs\/tags\/v//')
-          echo "version=$VERSION" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Print the extracted version
         run: |
