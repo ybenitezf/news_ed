@@ -87,7 +87,7 @@ jobs:
 
       - name: Extract version from tag
         run: |
-          VERSION=$(echo "${{ github.event.inputs.tag_name }}" | sed 's/^refs\/tags\/v//')
+          VERSION=$(echo "${{ github.event.inputs.tag_name }}" | sed 's/^v//')
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: create python binary (linux,macos)
