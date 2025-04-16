@@ -1,14 +1,12 @@
 [tool.poetry]
 name = "news_app"
-version = "0.0.1"
+version = "0.0.5"
 description = "A fasthtml backed"
 
 authors = ["Yoel Benítez Fonseca <ybenitezf@gmail.com>"]
 license = ""
 
-packages = [
-    {include = "news/ui_back",from = "../../bases"}
-]
+packages = [{ include = "news/ui_back", from = "../../bases" }]
 
 [tool.poetry.scripts]
 ui_back = 'news.ui_back.main:run'
