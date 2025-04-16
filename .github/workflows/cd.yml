@@ -1,11 +1,11 @@
 name: Manual Release on Tag
-run-name: Relase for ${{ github.event.inputs.tag_name }}
+run-name: Relase for ${{ github.event.inputs.version }}
 
 on:
   workflow_dispatch:
     inputs:
-      tag_name:
-        description: "Tag name to use for release"
+      version:
+        description: "version to release"
         required: true
         type: string
 
@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.tag_name }}
+          ref: v${{ github.event.inputs.version }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -71,7 +71,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.tag_name }}
+          ref: v${{ github.event.inputs.version }}
 
       - name: Download artifact news_app_dist
         uses: actions/download-artifact@v4
@@ -85,18 +85,13 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Extract version from tag
-        run: |
-          VERSION=$(echo "${{ github.event.inputs.tag_name }}" | sed 's/^v//')
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-
       - name: create python binary (linux,macos)
         if: runner.os != 'Windows'
         run: |
           python -m venv .venv
           source .venv/bin/activate
           pip install pyinstaller
-          pip install dist/news_app-${{ env.VERSION }}-py3-none-any.whl
+          pip install dist/news_app-${{ github.event.inputs.version }}-py3-none-any.whl
           pyinstaller --onefile runner.py
           mv dist/runner papp/runner
         working-directory: projects/elec_app
@@ -107,7 +102,7 @@ jobs:
           python -m venv venv
           .\venv\Scripts\Activate.ps1
           pip install pyinstaller
-          pip install dist/news_app-${{ env.VERSION }}-py3-none-any.whl
+          pip install dist/news_app-${{ github.event.inputs.version }}-py3-none-any.whl
           pyinstaller --onefile runner.py
           mv dist\runner.exe papp\runner.exe
         working-directory: projects/elec_app
