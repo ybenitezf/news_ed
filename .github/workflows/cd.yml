@@ -1,6 +1,13 @@
+name: Manual Release on Tag
+run-name: Relase for ${{ github.event.inputs.tag_name }}
+
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: "Tag name to use for release"
+        required: true
+        type: string
 
 jobs:
   python-build:
@@ -8,6 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag_name }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -61,6 +70,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag_name }}
 
       - name: Download artifact news_app_dist
         uses: actions/download-artifact@v4
@@ -107,11 +118,6 @@ jobs:
           npm install
           npm run package
         working-directory: projects/elec_app
-
-      # - name: debug files
-      #   working-directory: projects/elec_app
-      #   run: |
-      #     ls -R dist/*
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

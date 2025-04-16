@@ -1,0 +1,21 @@
+name: Release on Tag
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v3
+
+      # Extract the version part from the tag name
+      - name: Extract version number
+        id: extract_version
+        run: echo "::set-output name=version::${GITHUB_REF#refs/tags/v}"
+
+      - name: Use version number in subsequent steps
+        run: echo "The version is ${{ steps.extract_version.outputs.version }}"
