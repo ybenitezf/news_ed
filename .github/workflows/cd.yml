@@ -94,7 +94,7 @@ jobs:
           pip install dist/news_app-${{ github.event.inputs.version }}-py3-none-any.whl
           pyinstaller --onefile runner.py
           mv dist/runner papp/runner
-        working-directory: projects/elec_app
+        working-directory: projects/news_ed_app
 
       - name: create python binary
         if: runner.os == 'Windows'
@@ -105,26 +105,27 @@ jobs:
           pip install dist/news_app-${{ github.event.inputs.version }}-py3-none-any.whl
           pyinstaller --onefile runner.py
           mv dist\runner.exe papp\runner.exe
-        working-directory: projects/elec_app
+        working-directory: projects/news_ed_app
 
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: "projects/elec_app/package-lock.json"
+          cache-dependency-path: "projects/news_ed_app/package-lock.json"
 
       - name: Build electron app
         run: |
           npm install
           npm run package
-        working-directory: projects/elec_app
+          ls -R ./out
+        working-directory: projects/news_ed_app
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         if: runner.os == 'Windows'
         with:
           name: app_dist_win32
-          path: projects/elec_app/dist/*.exe
+          path: projects/news_ed_app/dist/*.exe
           if-no-files-found: "error"
 
       - name: Upload artifacts
@@ -132,7 +133,7 @@ jobs:
         if: runner.os == 'Linux'
         with:
           name: app_dist_linux
-          path: projects/elec_app/dist/*.AppImage
+          path: projects/news_ed_app/dist/*.AppImage
           if-no-files-found: "error"
 
       - name: Upload artifacts
@@ -140,5 +141,5 @@ jobs:
         if: runner.os == 'macOS'
         with:
           name: app_dist_macos
-          path: projects/elec_app/dist/*.dmg
+          path: projects/news_ed_app/dist/*.dmg
           if-no-files-found: "error"
