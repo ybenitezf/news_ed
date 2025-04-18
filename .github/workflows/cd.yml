@@ -141,5 +141,5 @@ jobs:
         if: runner.os == 'macOS'
         with:
           name: app_dist_macos
-          path: projects/news_ed_app/dist/*.dmg
+          path: projects/news_ed_app/out/NewsEditorApp-darwin-arm64
           if-no-files-found: "error"
